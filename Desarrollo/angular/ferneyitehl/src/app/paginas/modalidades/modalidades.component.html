@@ -1,0 +1,18 @@
+<div class="table-responsive mt-1">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Descuento</th>
+            </tr>    
+        </thead>
+        <tbody>
+            <tr class="table-info" *ngFor="let item of listado" >
+                <th>{{item.nombre}}</th>
+                <td>{{item.descripcion}}</td>
+                <td>{{item.descuento}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

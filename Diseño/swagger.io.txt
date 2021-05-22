@@ -1,0 +1,259 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Personal84933/itehlcurso/1.0.0
+info:
+  description: API 
+  version: "1.0.0"
+  title: API ITEHL
+  contact:
+    email: fgjojoa@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: servicios
+    description: Secured Admin-only calls
+paths:
+  /apimodalidad/modalidades:
+    get:
+      tags:
+        - servicios
+      summary: devuelve todas las modalidades
+      description: |
+        Este servicio devuelve un arreglo de modalidades
+      responses:
+        '200':
+          description: devuelve un arreglo de modalidades
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Modalidad'
+        '400':
+          description: Error en el servidor
+  /apicurso/cursos:
+    get:
+      tags:
+        - servicios
+      summary: devuelve todos los cursos
+      description: |
+        Este servico devuelve un arreglo de cursos
+      responses:
+        '200':
+          description: devuelve un arreglo de cursos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Curso'
+        '400':
+          description: Error en el servidor
+  /apicurso/modalidad:
+    post:
+      tags:
+        - servicios
+      summary: devuelve todos los cursos para una modalidad
+      description: |
+        Este servico devuelve un arreglo de cursos
+        Segun una modalidad
+      responses:
+        '200':
+          description: devuelve un arreglo de cursos por modalidad
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Curso'
+        '400':
+          description: Error en el servidor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Modalidad'
+        description: Modalidad para filtrar los cursos
+  /apicurso/save:
+    post:
+      tags:
+        - servicios
+      summary: Guarda un curso
+      description: |
+        Este servico guarda la información del Curso
+      responses:
+        '200':
+          description: devuelve el curso guardado
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Curso'
+        '400':
+          description: Error en el servidor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Curso'
+        description: Curso a Salvar
+  /apicurso/delete/{id}:
+    delete:
+      tags:
+        - servicios
+      summary: Elimina un curso
+      description: |
+        Este servico elimina un  Curso
+      parameters:
+        - in: path
+          name: id
+          description: curso a eliminar
+          required: true
+          schema:
+            type: string 
+      responses:
+        '200':
+          description: curso eliminado
+        '400':
+          description: Error en el servidor
+  /apidescuento/curso:
+    post:
+      tags:
+        - servicios
+      summary: devuelve todos los cursos para una modalidad
+      description: |
+        Este servico devuelve un arreglo de descuentos
+        Segun un curso
+      responses:
+        '200':
+          description: devuelve un arreglo de desceuntos por curso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Descuento'
+        '400':
+          description: Error en el servidor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Curso'
+        description: Curso para filtrar las desceuntos
+  /apidescuento/save:
+    post:
+      tags:
+        - servicios
+      summary: Guarda un Descuento
+      description: |
+        Este servico guarda la información del Descuento
+      responses:
+        '200':
+          description: devuelve el curso guardado
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Descuento'
+        '400':
+          description: Error en el servidor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Descuento'
+        description: Descuento a Salvar
+  /apidescuento/delete/{id}:
+    delete:
+      tags:
+        - servicios
+      summary: Elimina un Descuento
+      description: |
+        Este servico elimina un Descuento
+      parameters:
+        - in: path
+          name: id
+          description: Id descuento a eliminar
+          required: true
+          schema:
+            type: string 
+      responses:
+        '200':
+          description: Descuento eliminado
+        '400':
+          description: Error en el servidor
+components:
+  schemas:
+    Modalidad:
+      type: object
+      required: 
+        - id
+        - nombre
+        - descuento
+      properties:
+        id:
+          type: string
+        nombre:
+          type: string
+        descuento:
+           type: number
+    Curso:
+      type: object
+      required: 
+        - id
+        - nombre
+        - descripcion
+        - horas
+        - dirigido
+        - costo
+        - modalidad
+      properties:
+        id:
+          type: string
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        horas:
+          type: string
+        dirigido:
+          type: string
+        modalidad:
+          type: object
+    Descuento:
+      type: object
+      required: 
+        - id
+        - nombre
+        - modalidad
+        - pais
+        - precio
+        - descuento
+        - precioFinal
+        - curso
+        - fechaFinal
+      properties:
+        id:
+          type: string
+        nombre:
+          type: string
+        modalidad: 
+          type: object
+        pais:
+          type: string
+        precio:
+          type: number
+        descuento:
+          type: number
+        precioFinal:
+          type: number
+        curso:
+          type: object
+        fechaFinal:
+          type: string
